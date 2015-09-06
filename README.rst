@@ -27,8 +27,8 @@ Get it running
 * Fill the configuration file, for example::
 
     [main]
-    username = me
-    email = my_email@example.com
+    username= me
+    email = email@example.tld
 
     [subsurface]
     git_url = git://subsurface.hohndel.org/subsurface.git
@@ -43,17 +43,6 @@ Get it running
     patch_files = ~/GIT/guake/guake-0.2.2-fix_vte.patch,
                   ~/GIT/guake/0001-Remove-vte-check-in-the-configure.ac.patch
 
-
-The Main section
-----------------
-`username`` The name to use in the changelog of the spec file when updating
-it.
-
-``email`` The email to use in the changelog of the spec file when updating
-it.
-
-The project section
--------------------
 
 For each project, only three options are required:
 
@@ -89,6 +78,9 @@ From the sources, it requires few steps:
 * Install dependencies::
 
     dnf install libgit2-devel python-pygit2 python-requests-ftp python-requests-file copr-cli
+
+* Make sure that you have a valid Copr API Token::
+  See https://copr.fedoraproject.org/api/
 
 * Run dgroc::
 
