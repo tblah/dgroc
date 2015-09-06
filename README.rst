@@ -1,7 +1,8 @@
 dgroc
 =====
 
-:Author: Pierre-Yves Chibon <pingou@pingoured.fr>
+:Author: Pierre-Yves Chibon <pingou@pingoured.fr> : Tom Eccles <t AT
+         freedommail DOT info>
 
 
 dgroc: Daily Git Rebuild On Copr
@@ -18,7 +19,7 @@ Get it running
 
 * Retrieve the sources::
 
-    git clone https://github.com/pypingou/dgroc.git
+    git clone https://github.com/tblah/dgroc.git
 
 
 * Create the configuration file ``~/.config/dgroc``
@@ -28,10 +29,6 @@ Get it running
     [main]
     username = me
     email = my_email@example.com
-    copr_url = https://copr.fedoraproject.org/
-    upload_command = cp %s /var/www/html/subsurface/
-    upload_url = http://my_server/subsurface/%s
-    #no_ssl_check = True  # No longer required now that copr has a valid cert
 
     [subsurface]
     git_url = git://subsurface.hohndel.org/subsurface.git
@@ -54,27 +51,6 @@ it.
 
 ``email`` The email to use in the changelog of the spec file when updating
 it.
-
-``copr_url`` The url of `copr`_ to use.
-
-``upload_command`` The command to run to make the source rpm (src.rpm, srpm)
-available to copr. This can be a copy command (cp) or a copy over ssh (scp).
-Note that the ``%s`` is important, it will be replaced by the full path to
-the source rpm created.
-
-`upload_url` The url of the source rpm once it has been uploaded. Note that
-here as well the ``%s`` is important as it will be replaced by the source
-rpm file name.
-
-For example, if you upload your source rpm onto your fedorapeople space, your
-``upload_command`` might be: ``scp %s fedorapeople:public_html/srpms/`` and
-your ``upload_url`` might be: ``https://pingou.fedorapeople.org/srpms/%s``.
-
-``no_ssl_check`` Simple boolean to check the ssl certificate when starting
-the build on copr. At the moment the ssl certificate is self-signed and thus
-invalid. So using the ``https`` version of ``copr_url`` will require a
-``no_ssl_check`` set to ``True``.
-
 
 The project section
 -------------------
@@ -112,22 +88,13 @@ From the sources, it requires few steps:
 
 * Install dependencies::
 
-    yum install libgit2-devel python-virtualenvwrapper
-
-* Create a virtual env::
-
-    mkvirtualenv dgroc
-
-* Install the python dependencies::
-
-    pip install -r requirements.txt
+    dnf install libgit2-devel python-pygit2 python-requests-ftp python-requests-file copr-cli
 
 * Run dgroc::
 
-    ./dgroc.py
+    python2 dgroc.py
 
-For more information/output run ``./dgroc.py --debug``
-
+For more information/output run ``python2 dgroc.py --debug``
 
 Run dgroc daily
 ---------------
@@ -137,7 +104,7 @@ The easiest way to run dgroc daily is to simply rely on `cron
 
 Here is an example cron entry that you will need to adjust for your setup::
 
-    30 10 * * * python /home/pingou/dgroc/dgroc.py
+    30 10 * * * python2 /home/pingou/dgroc/dgroc.py
 
 
 This cron will run every day at 10:30 am and call the dgroc.py script within the
