@@ -23,7 +23,6 @@ import time
 import warnings
 from datetime import date
 
-#import requests
 try:
     import pygit2
 except ImportError:

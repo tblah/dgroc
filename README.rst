@@ -77,7 +77,7 @@ From the sources, it requires few steps:
 
 * Install dependencies::
 
-    dnf install libgit2-devel python-pygit2 python-requests-ftp python-requests-file copr-cli
+    dnf install libgit2-devel python-pygit2 copr-cli
 
 * Make sure that you have a valid Copr API Token::
   See https://copr.fedoraproject.org/api/
